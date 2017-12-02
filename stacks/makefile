@@ -9,7 +9,7 @@ clean:
 	rm -fr $(BUILD_DIR)
 
 write-template: pep8
-	. $(VENV_DIR)/bin/activate && python src/template.py > $(BUILD_DIR)/$(STACK_NAME).json
+	. $(VENV_DIR)/bin/activate && python src/template.py ${ENV} > $(BUILD_DIR)/$(STACK_NAME).json
 
 pep8: venv create-build-dir
 	. $(VENV_DIR)/bin/activate && pep8 src/template.py
