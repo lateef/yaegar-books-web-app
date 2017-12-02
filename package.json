@@ -10,6 +10,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "apply-stack": "cd stacks && ./apply-stack.sh",
+    "sync-web": "cd scripts && ./sync-web-s3-website.sh",
     "test": "react-scripts test --env=jsdom --coverage",
     "test-ci": "CI=true react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject"
