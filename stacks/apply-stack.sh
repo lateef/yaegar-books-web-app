@@ -100,7 +100,27 @@ else
 
     echo "Change set ${change_set_name} created for stack ${stack_name}";
 
-    #TODO: diff files to output difference to terminal
+    stack_template=$(aws cloudformation get-template --stack-name ${stack_name} | jq -S .)
+    change_set_template=$(aws cloudformation get-template --change-set-name ${change_set_name} --stack-name ${stack_name} | jq -S .)
+    template_diff=$(diff --suppress-common-lines -u <(echo "${stack_template}") <(echo "${change_set_template}"))
+
+    stack_parameters=$(aws cloudformation describe-stacks --stack-name ${stack_name} |
+    jq -S '.Stacks[0].Parameters |= sort_by(.ParameterKey) | .Stacks[0].Parameters[]')
+    change_set_parameters=$(aws cloudformation describe-change-set --change-set-name ${change_set_name} --stack-name ${stack_name} |
+     jq -S '.Parameters |= sort_by(.ParameterKey) | .Parameters[]')
+    parameter_diff=$(diff --suppress-common-lines -u <(echo "${stack_parameters}") <(echo "${change_set_parameters}"))
+
+    echo "Applying the following changes:"
+
+    if [[ "$template_diff" != "" ]]; then
+        echo "Template:"
+        echo ${template_diff}
+    fi
+
+    if [[ "$template_diff" != "" ]]; then
+        echo "Parameters:"
+        echo ${parameter_diff}
+    fi
 
     aws cloudformation execute-change-set --change-set-name ${change_set_arn}
 
