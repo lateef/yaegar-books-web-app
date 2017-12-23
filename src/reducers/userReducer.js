@@ -1,5 +1,5 @@
 export default function reducer(state = {
-    user: {email: '1', password: '', passwordAgain: '', phoneNumber: '', passwordMatched: false},
+    user: {email: '', password: '', passwordAgain: '', phoneNumber: '', passwordMatched: false},
     fetching: false,
     fetched: false,
     error: null,
