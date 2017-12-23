@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
 import {bindActionCreators} from 'redux';
 import './App.css';
-import * as user from './actions/userActions';
+import * as userActions from './actions/userActions';
 
 export class App extends Component {
     constructor(props) {
@@ -105,6 +105,6 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(user, dispatch)
+        actions: bindActionCreators(userActions, dispatch)
     };
 }

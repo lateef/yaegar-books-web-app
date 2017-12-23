@@ -9,12 +9,13 @@ import registerServiceWorker from './registerServiceWorker';
 
 import store from './store';
 
-ReactDOM.render(<Provider store={store}>
-    <Router>
-        <div>
-            <Route exact path="/" component={App}/>
-            <Route path="/sign-up-complete" component={SignUpComplete}/>
-        </div>
-    </Router>
-</Provider>, document.getElementById('root'));
+ReactDOM.render(
+    <Provider store={store}>
+        <Router>
+            <div>
+                <Route exact path="/" component={App}/>
+                <Route path="/sign-up-complete" component={SignUpComplete}/>
+            </div>
+        </Router>
+    </Provider>, document.getElementById('root'));
 registerServiceWorker();
