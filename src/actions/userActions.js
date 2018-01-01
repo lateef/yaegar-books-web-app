@@ -19,7 +19,7 @@ export function validateEmail(email) {
         if (!validator.isEmail(email)) {
             dispatch({type: 'EMAIL_NOT_VALID', payload: email});
         } else {
-            dispatch({type: 'FETCH_USER_FULFILLED', payload: email})//FETCH_USER, payload: axios.get()})
+            dispatch({type: 'EMAIL_VALID', payload: email})
         }
     }
 }
@@ -80,6 +80,36 @@ export function signUp(user) {
             dispatch({type: 'REGISTER_FAILED', payload: e.message});
             return new Error('REGISTER_FAILED');
         }
+    }
+}
+
+export function logIn(user) {
+    return async function (dispatch) {
+        try {
+            await new Promise((resolve, reject) => {
+                Auth.handleSignIn(user.email, user.password, {
+                    onSuccess: async (result) => {
+                        dispatch({type: 'LOGIN_IN_PROGRESS'});
+                        await Auth.getCredentials(result);
+                        dispatch({type: 'LOGIN_SUCCEEDED', payload: result});
+                        resolve();
+                    },
+                    onFailure: (error) => {
+                        let displayError = Auth.check(error);
+                        reject(displayError);
+                    }
+                });
+            });
+        } catch (e) {
+            dispatch({type: 'LOGIN_FAILED', payload: e.invalidCredentialsMessage});
+        }
+    }
+}
+
+export function logout() {
+    return async function (dispatch) {
+        Auth.handleSignOut();
+        dispatch({type: 'LOGGED_OUT'});
     }
 }
 

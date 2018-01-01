@@ -1,24 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import './App.css';
-import * as user from './actions/userActions';
+import '../App.css';
+import * as user from '../actions/userActions';
 
 export class SignUpComplete extends Component {
 
     render() {
         return (
-            <div className="container">
-                <header>
-                    <h1 className="app-title">Yaegar Books</h1>
-                    <br/>
-                    <h2 className="app-intro">
-                        Accounting software for businesses
-                    </h2>
-                </header>
-                <nav>
-                    <a className="nav-link" href="/">Home</a>
-                </nav>
+            <div>
                 <main>
                     <h1>Sign Up Email Sent</h1>
                     <br/>
@@ -32,10 +22,6 @@ export class SignUpComplete extends Component {
                     <p/>
                     <p/>
                 </main>
-                <aside>
-
-                </aside>
-                <footer>Yaegar Limited</footer>
             </div>
         );
     }
