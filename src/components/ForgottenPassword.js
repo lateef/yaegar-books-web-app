@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Link} from 'react-router-dom';
 import Layout from '../components/Layout';
 import '../App.css';
 import * as user from '../actions/userActions';
 
-export class LogIn extends Component {
+export class ForgottenPassword extends Component {
     constructor(props) {
         super(props);
         this.props.actions.init();
@@ -17,19 +16,14 @@ export class LogIn extends Component {
         this.props.actions.updateEmailField(email);
     };
 
-    handleChangePassword = (event) => {
-        let password = event.target.value.trim();
-        this.props.actions.setPassword(password);
-    };
-
     async handlePress(e) {
         e.preventDefault();
 
         await this.props.actions.validateEmail(this.props.user.email);
         if (!this.props.error) {
-            await this.props.actions.logIn(this.props.user);
-            if (this.props.user.isLoggedIn) {
-                this.props.history.push("/")
+            await this.props.actions.forgotPassword(this.props.user);
+            if (this.props.user.hasSentForgottenPassword) {
+                this.props.history.push("/forgotten-password-sent");
             }
         }
     };
@@ -40,7 +34,7 @@ export class LogIn extends Component {
                 <br/>
                 <br/>
                 <form onSubmit={(e) => this.handlePress(e)}>
-                    <h1>Log In</h1>
+                    <h1>Forgotten Password</h1>
                     <br/>
                     <div>{this.props.error ? this.props.error : ''}</div>
                     <div>
@@ -51,28 +45,19 @@ export class LogIn extends Component {
                         <br/>
                     </div>
                     <div>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" value={this.props.user.password}
-                               onChange={(event) => this.handleChangePassword(event)}/>
-                        <br/>
-                        <br/>
-                    </div>
-                    <div>
-                        <input type="submit" name="login" className="login" value="Log In"
+                        <input type="submit" name="login" className="login" value="Send"
                                disabled={!this.props.user.email}/>
                     </div>
+                    <div>
+                    </div>
                 </form>
-                <div>
-                    <br/>
-                    <Link to="/forgotten-password">Forgotten Password?</Link>
-                </div>
                 <aside></aside>
             </Layout>
         );
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogIn)
+export default connect(mapStateToProps, mapDispatchToProps)(ForgottenPassword)
 
 function mapStateToProps(state, ownProps) {
     return {

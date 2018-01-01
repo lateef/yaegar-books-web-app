@@ -133,7 +133,7 @@ footer {
     font-size: large;
 }
 
-.signup, .login {
+.signup, .login, .forgotpasswordsent {
 background-color: rgba(191, 216, 227, .4);
 border: 1px solid rgba(191, 216, 227, .8);
 border-bottom-right-radius: 5px;
@@ -155,7 +155,8 @@ font-size: 110%;
 }
 
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="number"] {
 border: 1px solid rgba(191, 216, 227, .8);
 padding: 5px;
 border-radius: 5px;
