@@ -7,6 +7,11 @@ export default class Layout extends Component {
         this.props.actions.logout();
     };
 
+    handleUnregister = async () => {
+        await this.props.actions.unregister();
+        this.props.history.push("/");
+    };
+
     render() {
         return (
             <div className="container">
@@ -27,6 +32,10 @@ export default class Layout extends Component {
                             <li className="nav-link" onClick={() => {
                                 this.handleLogout()
                             }}><Link to="">Log Out</Link></li> : ''}
+                        {this.props.user.isLoggedIn ?
+                            <li className="nav-link" onClick={() => {
+                                this.handleUnregister()
+                            }}><Link to="">Delete Account</Link></li> : ''}
                             </ul>
                 </nav>
                 {this.props.children}

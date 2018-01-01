@@ -25,7 +25,7 @@ export class SignUpComplete extends Component {
     handleChangePasswordAgain = (event) => {
         let passwordAgain = event.target.value.trim();
         this.props.actions.setPasswordAgain(passwordAgain);
-        this.props.actions.confirmPassword(this.props.user.password, passwordAgain);
+        this.props.actions.validatePassword(this.props.user.password, passwordAgain);
     };
 
     async handlePress(e) {
@@ -42,10 +42,12 @@ export class SignUpComplete extends Component {
 
     render() {
         return (
-            <Layout user={this.props.user} actions={this.props.actions}>
+            <Layout user={this.props.user} actions={this.props.actions} history={this.props.history}>
                 <br/>
                 <br/>
                 <form onSubmit={(e) => this.handlePress(e)}>
+                    <h1>Sign Up</h1>
+                    <br/>
                     <div>{this.props.error ? this.props.error : ''}</div>
                     <div>
                         <label>Email</label>

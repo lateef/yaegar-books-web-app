@@ -45,10 +45,39 @@ function handleSignIn(username, password, loginCallBack) {
     cognitoUser.authenticateUser(authenticationDetails, loginCallBack);
 }
 
+function handleForgotPassword(username, forgotPasswordCallBack) {
+    const cognitoUser = new CognitoUser({
+        Username: username,
+        Pool: userPool,
+    });
+    cognitoUser.forgotPassword(forgotPasswordCallBack);
+}
+
+function handleForgotPasswordReset(username, verificationCode, newPassword, forgotPasswordCallBack) {
+    const cognitoUser = new CognitoUser({
+        Username: username,
+        Pool: userPool,
+    });
+    cognitoUser.confirmPassword(verificationCode, newPassword, forgotPasswordCallBack);
+}
+
 function handleSignOut() {
     const cognitoUser = getCurrentUser();
 
-    cognitoUser.signOut();
+    if (cognitoUser) {
+        cognitoUser.signOut();
+        window.localStorage.removeItem('currSession');
+        window.localStorage.removeItem('awsCredentials');
+        window.localStorage.setItem('isLoggedIn', false);
+    }
+}
+
+function handleUnregisterCustomer(unregisterCallBack) {
+    const cognitoUser = getCurrentUser();
+    cognitoUser.getSession((e, s) => console.log(e || 'session acquired = session.isValid()'));
+
+    cognitoUser.deleteUser(unregisterCallBack);
+
     window.localStorage.removeItem('currSession');
     window.localStorage.removeItem('awsCredentials');
     window.localStorage.setItem('isLoggedIn', false);
@@ -64,7 +93,7 @@ function getCurrentUser() {
 }
 
 function isSignedIn() {
-    return !!window.localStorage.getItem('isLoggedIn');
+    return window.localStorage.getItem('isLoggedIn') === 'true';
 }
 
 const getCredentials = async function getCredentials(session) {
@@ -131,6 +160,10 @@ function check(error) {
         return {
             invalidCredentialsMessage: 'Password reset required for the user',
         }
+    }else if (/UserNotConfirmedException: User is not confirmed.$/.test(err)) {
+        return {
+            invalidCredentialsMessage: 'User is not confirmed',
+        }
     }
 
     console.warn(error);
@@ -140,5 +173,6 @@ function check(error) {
 }
 
 export {
-    check, getCredentials, handleNewCustomerRegistration, handleSignIn, handleSignOut, isSignedIn
+    check, getCredentials, handleForgotPassword, handleForgotPasswordReset, handleNewCustomerRegistration, handleSignIn,
+    handleSignOut, handleUnregisterCustomer, isSignedIn
 }

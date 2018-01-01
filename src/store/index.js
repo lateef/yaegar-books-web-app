@@ -21,6 +21,8 @@ let store = createStore(reducer, applyMiddleware(...middleware));
 const isSignedIn = Auth.isSignedIn();
 if (isSignedIn) {
     store.dispatch({type: 'LOGIN_SUCCEEDED'});
+} else {
+    store.dispatch({type: 'LOGGED_OUT'})
 }
 
 export default store;

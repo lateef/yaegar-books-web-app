@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import Layout from './Layout';
 import '../App.css';
 import * as user from '../actions/userActions';
 
@@ -8,7 +9,7 @@ export class SignUpComplete extends Component {
 
     render() {
         return (
-            <div>
+            <Layout user={this.props.user} actions={this.props.actions} history={this.props.history}>
                 <main>
                     <h1>Sign Up Email Sent</h1>
                     <br/>
@@ -22,7 +23,7 @@ export class SignUpComplete extends Component {
                     <p/>
                     <p/>
                 </main>
-            </div>
+            </Layout>
         );
     }
 }

@@ -9,9 +9,9 @@ import * as userActions from '../actions/userActions';
 export class App extends Component {
     render() {
         return (
-            <Layout user={this.props.user} actions={this.props.actions}>
+            <Layout user={this.props.user} actions={this.props.actions} history={this.props.history}>
                 <main>
-                    <p>Welcome</p>
+                    <h1>Welcome</h1>
                 </main>
                 <aside>
                 </aside>
