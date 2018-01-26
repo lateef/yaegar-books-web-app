@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 import '../App.css';
 import * as user from '../actions/userActions';
 
-export class SignUpComplete extends Component {
+export class SignUp extends Component {
     constructor(props) {
         super(props);
         this.props.actions.init();
@@ -81,7 +81,7 @@ export class SignUpComplete extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpComplete)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
 
 function mapStateToProps(state, ownProps) {
     return {

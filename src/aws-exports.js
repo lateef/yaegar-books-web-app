@@ -1,8 +1,8 @@
 const awsmobile = {
     aws_project_region : 'eu-west-1',
-    aws_user_pools_id: 'eu-west-1_Ckn2q9XIs',
-    aws_user_pools_web_client_id: '5un99vkskd1e1f6bc9ahe83c7v',
-    aws_cognito_identity_pool_id: 'eu-west-1:8f8f001c-42e5-4f2f-a094-cfb4214b5530'
+    aws_user_pools_id: 'eu-west-1_sdL5BDDWg',
+    aws_user_pools_web_client_id: '5mia9r2idcaiet5tuddjn8de4q',
+    aws_cognito_identity_pool_id: 'eu-west-1:9191ac5d-22a6-487a-b6c7-810548041622'
 };
 
 export default awsmobile;
