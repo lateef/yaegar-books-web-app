@@ -17,10 +17,14 @@ function handleNewCustomerRegistration(username, password, email, phoneNumber, r
         Name: 'phone_number',
         Value: phoneNumber
     };
+    const dataSetupState = {
+        Name: 'custom:setup_state',
+        Value: 'NEW'
+    };
     const userAttributes = [];
     const attributeEmail = new CognitoUserAttribute(dataEmail);
     const attributePhone = new CognitoUserAttribute(dataPhone);
-
+    const attributeSetupState = new CognitoUserAttribute(dataSetupState);
 
     if (dataEmail.Value) {
         userAttributes.push(attributeEmail);
@@ -28,6 +32,7 @@ function handleNewCustomerRegistration(username, password, email, phoneNumber, r
     if (dataPhone.Value) {
         userAttributes.push(attributePhone);
     }
+    userAttributes.push(attributeSetupState);
 
     userPool.signUp(username, password, userAttributes, null, registerCallBack);
 }
