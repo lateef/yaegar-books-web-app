@@ -1,5 +1,5 @@
 import validator from 'validator';
-import crypto from 'crypto';
+import hash from 'hash.js';
 
 import Auth from '../aws-cognito/index';
 
@@ -66,9 +66,7 @@ export function signUp(user) {
     return async function (dispatch) {
         try {
             return await new Promise((resolve, reject) => {
-                const hash = crypto.createHash('sha256');
-                hash.update(user.email);
-                user.username = hash.digest('hex');
+                user.username = hash.sha256().update(user.email).digest('hex');
                 Auth.handleNewCustomerRegistration(user.username, user.password, user.email, user.phoneNumber, (err, result) => {
                     if (err) {
                         reject(err);
