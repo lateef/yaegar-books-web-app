@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "amazon-cognito-identity-js": "^1.29.0",
-    "crypto": "^1.0.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
